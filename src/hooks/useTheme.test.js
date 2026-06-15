@@ -30,6 +30,8 @@ describe("useTheme", () => {
     const { result } = renderHook(() => useTheme());
     act(() => {
       result.current[1]();
+    });
+    act(() => {
       result.current[1]();
     });
     expect(result.current[0]).toBe("light");
