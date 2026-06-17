@@ -1,7 +1,7 @@
 function Button(props) {
-  const { className, children, onClick } = props;
+  const { className, children, onClick, ...rest } = props;
   return (
-    <button className={className} onClick={onClick}>
+    <button className={className} onClick={onClick} {...rest}>
       {children}
     </button>
   );
