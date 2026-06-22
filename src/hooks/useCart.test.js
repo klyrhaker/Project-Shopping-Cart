@@ -51,7 +51,7 @@ describe("useContext/useCart", () => {
     });
     expect(result.current.cart).toHaveLength(1);
     act(() => {
-      result.current.removeFromCart(newProduct);
+      result.current.decreaseFromCart(newProduct);
     });
     expect(result.current.cart).toHaveLength(0);
   });
