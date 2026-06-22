@@ -4,7 +4,7 @@ import useLocalStorage from "../hooks/useLocalStorage";
 const CartContext = createContext({
   cart: [],
   addToCart: () => {},
-  removeFromCart: () => {},
+  decreaseFromCart: () => {},
   clearCart: () => {},
 });
 function CartProvider({ children }) {
@@ -25,15 +25,28 @@ function CartProvider({ children }) {
     }
   }
 
-  function removeFromCart(product) {
+  function decreaseFromCart(product) {
+    const cartItem = cart.find((item) => item.id === product.id);
+    if (!cartItem) return;
+    if (cartItem.quantity > 1) {
+      return setCart(
+        cart.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity - 1 }
+            : item,
+        ),
+      );
+    }
+
     return setCart(cart.filter((item) => item.id !== product.id));
   }
+
   function clearCart() {
     return setCart([]);
   }
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, clearCart }}
+      value={{ cart, addToCart, decreaseFromCart, clearCart }}
     >
       {children}
     </CartContext.Provider>
