@@ -41,7 +41,7 @@ describe("useContext/useCart", () => {
     expect(result.current.cart[0].quantity).toBe(2);
   });
 
-  test("removeFromCart удаляет товар если он есть в стейте", () => {
+  test("decreaseFromCart удаляет товар если он есть в стейте", () => {
     const { result } = renderHook(() => useCart(), {
       wrapper: CartProvider,
     });
@@ -54,6 +54,22 @@ describe("useContext/useCart", () => {
       result.current.decreaseFromCart(newProduct);
     });
     expect(result.current.cart).toHaveLength(0);
+  });
+  test("decreaseFromCart уменьшает колличество товара если его quantity > 1", () => {
+    const { result } = renderHook(() => useCart(), { wrapper: CartProvider });
+    const newProduct = { id: 7 };
+    act(() => {
+      result.current.addToCart(newProduct);
+    });
+
+    act(() => {
+      result.current.addToCart(newProduct);
+    });
+    expect(result.current.cart[0].quantity).toBe(2);
+    act(() => {
+      result.current.decreaseFromCart(newProduct);
+    });
+    expect(result.current.cart[0].quantity).toBe(1);
   });
 
   test("clearCart полностью очищает стейт от всех товаров", () => {
