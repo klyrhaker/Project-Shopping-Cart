@@ -1,5 +1,7 @@
+import { FAKE_STORE_API_URL } from "../constants/api";
+
 async function getProducts() {
-  const res = await fetch("https://fakestoreapi.com/products");
+  const res = await fetch(FAKE_STORE_API_URL);
   if (!res.ok) throw new Error(`error: ${res.status}`);
 
   const data = await res.json();
