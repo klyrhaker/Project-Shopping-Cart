@@ -8,7 +8,7 @@ function Shop() {
   if (loading) return <Skeleton />;
   if (error) return <ErrorMessage message="Ошибка при загрузке товаров" />;
   return (
-    <ul className="product-list">
+    <ul className="product-list" data-testid="product-list">
       {products.map((product) => (
         <li key={product.id} className="product-list__item">
           <ProductCard {...product} />
