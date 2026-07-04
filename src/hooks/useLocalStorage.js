@@ -14,11 +14,10 @@ function useLocalStorage(key, initialValue) {
 
   function setStoredValue(newValue) {
     try {
-      setValue(newValue);
       localStorage.setItem(key, JSON.stringify(newValue));
+      setValue(newValue);
     } catch (err) {
       console.error(err);
-      setValue(initialValue);
     }
   }
 
