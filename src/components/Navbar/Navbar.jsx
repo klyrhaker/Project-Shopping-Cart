@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import useCart from "../../hooks/useCart";
 import Button from "../Button/Button";
 import useTheme from "../../hooks/useTheme";
+import { getCartSummary } from "../../utils/cartUtils";
 
 function Navbar() {
   const { cart } = useCart();
@@ -13,7 +14,7 @@ function Navbar() {
         <Link to="/">Товары</Link>
         <Link to="/cart">Корзина</Link>
       </nav>
-      <span data-testid="cart-count">{cart.length}</span>
+      <span data-testid="cart-count">{getCartSummary(cart).totalQuantity}</span>
       <Button
         data-testid="theme-btn"
         className="theme-btn"

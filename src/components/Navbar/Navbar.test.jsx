@@ -32,14 +32,14 @@ describe("Navbar", () => {
     localStorage.setItem(
       "cart",
       JSON.stringify([
-        { id: 1, quantity: 1 },
+        { id: 1, quantity: 2 },
         { id: 2, quantity: 1 },
       ]),
     );
     render(<Navbar />, { wrapper });
     const countCart = screen.getByTestId("cart-count");
     expect(countCart).toBeInTheDocument();
-    expect(countCart).toHaveTextContent("2");
+    expect(countCart).toHaveTextContent("3");
   });
   test("Navbar рендерит кнопку смены темы", () => {
     render(<Navbar />, { wrapper });
