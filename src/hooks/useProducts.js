@@ -6,9 +6,11 @@ function useProducts() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     async function fetchProducts() {
       try {
-        const data = await getProducts();
+        const data = await getProducts(signal);
         setProducts(data);
       } catch (err) {
         setError(err);
@@ -17,6 +19,7 @@ function useProducts() {
       }
     }
     fetchProducts();
+    return () => controller.abort();
   }, []);
 
   return { products, loading, error };

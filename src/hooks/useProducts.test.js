@@ -61,4 +61,15 @@ describe("useProducts", () => {
       expect(result.current.loading).toBe(false);
     });
   });
+  test("вызывает abort() при размонтировании", async () => {
+    getProducts.mockResolvedValue([]);
+    const abortSpy = vi.spyOn(AbortController.prototype, "abort");
+
+    const { unmount } = renderHook(() => useProducts());
+    unmount();
+
+    expect(abortSpy).toHaveBeenCalledTimes(1);
+
+    abortSpy.mockRestore();
+  });
 });
