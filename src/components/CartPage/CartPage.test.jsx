@@ -156,4 +156,65 @@ describe("CartPage", () => {
     await user.click(button);
     expect(clearCart).toHaveBeenCalled();
   });
+  test("рендерит кнопку 'X' для удаления товара из корзины", () => {
+    useCart.mockReturnValue({
+      cart: [
+        {
+          title: "product1",
+          description: "",
+          id: 3,
+          img: { src: "/png", alt: "" },
+          price: 1,
+          quantity: 1,
+        },
+      ],
+      addToCart: () => {},
+      decreaseFromCart: () => {},
+      removeFromCart: () => {},
+      clearCart: () => {},
+    });
+    render(
+      <MemoryRouter>
+        <CartPage />
+      </MemoryRouter>,
+    );
+    const button = screen.getByTestId("remove-3");
+    expect(button).toBeInTheDocument();
+  });
+  test("при нажатии на  кнопку 'X' товар удаляется из корзины", async () => {
+    const removeFromCart = vi.fn();
+    useCart.mockReturnValue({
+      cart: [
+        {
+          title: "product1",
+          description: "",
+          id: 3,
+          img: { src: "/png", alt: "" },
+          price: 1,
+          quantity: 1,
+        },
+        {
+          title: "product2",
+          description: "",
+          id: 32,
+          img: { src: "/png", alt: "" },
+          price: 4,
+          quantity: 2,
+        },
+      ],
+      addToCart: () => {},
+      decreaseFromCart: () => {},
+      removeFromCart,
+      clearCart: () => {},
+    });
+    render(
+      <MemoryRouter>
+        <CartPage />
+      </MemoryRouter>,
+    );
+    const button = screen.getByTestId("remove-32");
+    const user = userEvent.setup();
+    await user.click(button);
+    expect(removeFromCart).toHaveBeenCalled();
+  });
 });

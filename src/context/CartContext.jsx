@@ -5,14 +5,15 @@ const CartContext = createContext({
   cart: [],
   addToCart: () => {},
   decreaseFromCart: () => {},
+  removeFromCart: () => {},
   clearCart: () => {},
 });
 function CartProvider({ children }) {
   const [cart, setCart] = useLocalStorage("cart", []);
 
   function addToCart(product) {
-    const exsisting = cart.find((item) => item.id === product.id);
-    if (exsisting) {
+    const existing = cart.find((item) => item.id === product.id);
+    if (existing) {
       setCart(
         cart.map((item) =>
           item.id === product.id
@@ -41,12 +42,16 @@ function CartProvider({ children }) {
     return setCart(cart.filter((item) => item.id !== product.id));
   }
 
+  function removeFromCart(id) {
+    return setCart(cart.filter((item) => item.id !== id));
+  }
+
   function clearCart() {
     return setCart([]);
   }
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, decreaseFromCart, clearCart }}
+      value={{ cart, addToCart, decreaseFromCart, removeFromCart, clearCart }}
     >
       {children}
     </CartContext.Provider>

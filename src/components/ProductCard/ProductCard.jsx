@@ -2,8 +2,15 @@ import useCart from "../../hooks/useCart";
 import Button from "../Button/Button";
 
 function ProductCard(props) {
-  const { title, description, price = 0, id, img = {} } = props;
-  const { cart, addToCart, decreaseFromCart } = useCart();
+  const {
+    title,
+    description,
+    price = 0,
+    id,
+    img = {},
+    isInCart = false,
+  } = props;
+  const { cart, addToCart, decreaseFromCart, removeFromCart } = useCart();
   const cartItem = cart.find((item) => item.id === id);
   const quantity = cartItem ? cartItem.quantity : 0;
   return (
@@ -39,6 +46,16 @@ function ProductCard(props) {
       >
         -
       </Button>
+      {isInCart && (
+        <Button
+          className="remove-cart"
+          onClick={() => removeFromCart(id)}
+          aria-label="удалить товар"
+          data-testid={`remove-${id}`}
+        >
+          x
+        </Button>
+      )}
     </article>
   );
 }

@@ -12,7 +12,7 @@ function CartPage() {
   return (
     <>
       {cart.map((product) => (
-        <ProductCard key={product.id} {...product} />
+        <ProductCard key={product.id} {...product} isInCart />
       ))}
 
       <p data-testid="total-price" className="total-price">
