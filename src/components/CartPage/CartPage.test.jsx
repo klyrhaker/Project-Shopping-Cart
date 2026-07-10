@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { getByRole, render, screen } from "@testing-library/react";
 import useCart from "../../hooks/useCart";
 import userEvent from "@testing-library/user-event";
 import CartPage from "./CartPage";
@@ -215,6 +215,90 @@ describe("CartPage", () => {
     const button = screen.getByTestId("remove-32");
     const user = userEvent.setup();
     await user.click(button);
-    expect(removeFromCart).toHaveBeenCalled();
+    expect(removeFromCart).toHaveBeenCalledWith(32);
+  });
+  test("рендерит кнопку 'оформить заказ'", () => {
+    useCart.mockReturnValue({
+      cart: [
+        {
+          title: "product1",
+          description: "",
+          id: 3,
+          img: { src: "/png", alt: "" },
+          price: 1,
+          quantity: 1,
+        },
+      ],
+      addToCart: () => {},
+      decreaseFromCart: () => {},
+      removeFromCart: () => {},
+      clearCart: () => {},
+    });
+
+    render(
+      <MemoryRouter>
+        <CartPage />
+      </MemoryRouter>,
+    );
+    const button = screen.getByRole("button", { name: /оформить заказ/i });
+    expect(button).toBeInTheDocument();
+  });
+  test("при клике на кнопку выводится текст 'заказ успешно оформлен'", async () => {
+    useCart.mockReturnValue({
+      cart: [
+        {
+          title: "product1",
+          description: "",
+          id: 3,
+          img: { src: "/png", alt: "" },
+          price: 1,
+          quantity: 1,
+        },
+      ],
+      addToCart: () => {},
+      decreaseFromCart: () => {},
+      removeFromCart: () => {},
+      clearCart: () => {},
+    });
+    const user = userEvent.setup();
+    render(
+      <MemoryRouter>
+        <CartPage />
+      </MemoryRouter>,
+    );
+    const button = screen.getByRole("button", { name: /оформить заказ/i });
+    expect(screen.queryByTestId("text-order")).not.toBeInTheDocument();
+    await user.click(button);
+    expect(screen.getByTestId("text-order")).toHaveTextContent(
+      /заказ успешно оформлен/i,
+    );
+  });
+  test("при клике на кнопку 'оформить заказ' вызывается clearCart", async () => {
+    const clearCart = vi.fn();
+    useCart.mockReturnValue({
+      cart: [
+        {
+          title: "product1",
+          description: "",
+          id: 3,
+          img: { src: "/png", alt: "" },
+          price: 1,
+          quantity: 1,
+        },
+      ],
+      addToCart: () => {},
+      decreaseFromCart: () => {},
+      removeFromCart: () => {},
+      clearCart,
+    });
+    const user = userEvent.setup();
+    render(
+      <MemoryRouter>
+        <CartPage />
+      </MemoryRouter>,
+    );
+    const button = screen.getByRole("button", { name: /оформить заказ/i });
+    await user.click(button);
+    expect(clearCart).toHaveBeenCalled();
   });
 });
