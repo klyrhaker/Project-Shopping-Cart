@@ -17,7 +17,10 @@ async function getProducts(signal) {
     });
     return products;
   } catch (err) {
-    if (err.name !== "AbortError") throw new Error(`error: ${err}`);
+    if (err.name === "AbortError") {
+      throw err;
+    }
+    throw new Error(`error: ${err}`);
   }
 }
 export default getProducts;

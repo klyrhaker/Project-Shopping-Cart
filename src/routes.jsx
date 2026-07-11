@@ -11,7 +11,7 @@ const routes = [
     children: [
       {
         errorElement: (
-          <ErrorMessage message="Что-то пошло не так. Попробуйте вернуться на главную." />
+          <ErrorMessage message="Что-то пошло не тк. Попробуйте вернуться на главную." />
         ),
         children: [
           { index: true, element: <HomePage /> },

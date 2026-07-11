@@ -13,7 +13,9 @@ function useProducts() {
         const data = await getProducts(signal);
         setProducts(data);
       } catch (err) {
-        setError(err);
+        if (err.name !== "AbortError") {
+          setError(err);
+        }
       } finally {
         setLoading(false);
       }
