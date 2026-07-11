@@ -3,6 +3,7 @@ import { createMemoryRouter, RouterProvider } from "react-router";
 import routes from "./routes";
 import useProducts from "./hooks/useProducts";
 import useCart from "./hooks/useCart";
+import { expect } from "vitest";
 vi.mock("./hooks/useProducts");
 vi.mock("./hooks/useCart");
 
@@ -47,5 +48,15 @@ describe("routes", () => {
     render(<RouterProvider router={router} />);
     const link = screen.getByRole("link", { name: /перейти к товарам/i });
     expect(link).toBeInTheDocument();
+  });
+  test("рендерит ErrorMessage в случае невернорго пути", () => {
+    const router = createMemoryRouter(routes, {
+      initialEntries: ["/this-page-does-not-exist"],
+    });
+    render(<RouterProvider router={router} />);
+    const errorMessage = screen.getByRole("alert");
+    expect(errorMessage).toHaveTextContent(
+      /что-то пошло не так. попробуйте вернуться на главную./i,
+    );
   });
 });
