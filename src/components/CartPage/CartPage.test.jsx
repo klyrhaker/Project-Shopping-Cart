@@ -1,4 +1,4 @@
-import { getByRole, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import useCart from "../../hooks/useCart";
 import userEvent from "@testing-library/user-event";
 import CartPage from "./CartPage";
@@ -267,9 +267,11 @@ describe("CartPage", () => {
       </MemoryRouter>,
     );
     const button = screen.getByRole("button", { name: /оформить заказ/i });
-    expect(screen.queryByTestId("text-order")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/заказ успешно оформлен/i),
+    ).not.toBeInTheDocument();
     await user.click(button);
-    expect(screen.getByTestId("text-order")).toHaveTextContent(
+    expect(screen.getByRole("status")).toHaveTextContent(
       /заказ успешно оформлен/i,
     );
   });
