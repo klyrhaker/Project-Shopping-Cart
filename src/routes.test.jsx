@@ -16,6 +16,11 @@ describe("routes", () => {
       decreaseFromCart: () => {},
       clearCart: () => {},
     });
+    useProducts.mockReturnValue({
+      products: [],
+      loading: false,
+      error: null,
+    });
   });
   test("рендерит HomePage на пути /", () => {
     const router = createMemoryRouter(routes, {
@@ -28,12 +33,6 @@ describe("routes", () => {
     expect(heading).toBeInTheDocument();
   });
   test("рендерит Shop на пути /shop", () => {
-    useProducts.mockReturnValue({
-      products: [],
-      loading: false,
-      error: null,
-    });
-
     const router = createMemoryRouter(routes, {
       initialEntries: ["/shop"],
     });
@@ -49,7 +48,7 @@ describe("routes", () => {
     const link = screen.getByRole("link", { name: /перейти к товарам/i });
     expect(link).toBeInTheDocument();
   });
-  test("рендерит ErrorMessage в случае невернорго пути", () => {
+  test("рендерит ErrorMessage в случае неверного пути", () => {
     const router = createMemoryRouter(routes, {
       initialEntries: ["/this-page-does-not-exist"],
     });
@@ -59,4 +58,17 @@ describe("routes", () => {
       /что-то пошло не так. попробуйте вернуться на главную./i,
     );
   });
+  test.each(["/", "/shop", "/cart", "/this-page-does-not-exist"])(
+    "футер отображается на пути %s",
+    (path) => {
+      const router = createMemoryRouter(routes, {
+        initialEntries: [path],
+      });
+
+      render(<RouterProvider router={router} />);
+
+      const footer = screen.getByRole("contentinfo");
+      expect(footer).toBeInTheDocument();
+    },
+  );
 });
