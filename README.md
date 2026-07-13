@@ -1,37 +1,78 @@
-# Klyrh Shop 🛒
+# 🛒 Klyrh Shop
 
-Учебный проект интернет-магазина с корзиной покупок, реализованный в рамках курса [The Odin Project](https://www.theodinproject.com/).
+Одностраничное приложение интернет-магазина на **React 18 + Vite**, разработанное в строгом TDD-подходе в рамках учебной программы [The Odin Project](https://www.theodinproject.com/).
 
-**🔗 Демо:** [project-shopping-cart-ashy.vercel.app](https://project-shopping-cart-ashy.vercel.app)
+🔗 **[Открыть демо на Vercel](https://project-shopping-cart-ashy.vercel.app)**
+
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-6E9F18?logo=vitest&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-v7-CA4245?logo=reactrouter&logoColor=white)
+
+---
+
+## 📱 Интерфейс приложения
+
+Приложение поддерживает светлую и тёмную тему с переключением в один клик и сохранением выбора в `localStorage`.
+
+|                 Главная (тёмная тема)                  |             Каталог товаров (светлая тема)              |
+| :----------------------------------------------------: | :-----------------------------------------------------: |
+| <img src="docs/screenshots/home-dark.png" width="400"> | <img src="docs/screenshots/shop-light.png" width="400"> |
+
+<details>
+  <summary>Показать остальные экраны</summary>
+
+|             Каталог товаров (тёмная тема)              |               Корзина с товарами (тёмная тема)               |
+| :----------------------------------------------------: | :----------------------------------------------------------: |
+| <img src="docs/screenshots/shop-dark.png" width="400"> | <img src="docs/screenshots/cart-items-dark.png" width="400"> |
+
+|               Уведомление об оформлении заказа               |                404 — страница не найдена                 |
+| :----------------------------------------------------------: | :------------------------------------------------------: |
+| <img src="docs/screenshots/cart-toast-dark.png" width="400"> | <img src="docs/screenshots/error-light.png" width="400"> |
+
+</details>
 
 ---
 
 ## О проекте
 
-Klyrh Shop — одностраничное приложение (SPA) со списком товаров, корзиной, оформлением заказа и переключением светлой/тёмной темы. Проект разработан в строгом TDD-подходе: каждая фича сначала покрывается падающим тестом, затем реализуется код, который делает тест зелёным.
+Каждая фича в этом проекте разрабатывалась по одному и тому же циклу: **ветка → падающий тест → реализация → зелёный тест → коммит → merge в `dev`**. Ни одна функция не писалась без теста, который бы её потребовал.
 
-## Технологии
+## ✨ Возможности
 
-- **React 18** + **Vite**
-- **React Router v7** (data router API — `createBrowserRouter`)
-- **Vitest** + **React Testing Library** — модульное и интеграционное тестирование
-- **CSS Modules** — изолированная стилизация компонентов
-- **CSS Custom Properties** — светлая/тёмная тема
-- **lucide-react** — иконки
-- **Vercel** — деплой
+- **Каталог товаров** — загрузка из [Fake Store API](https://fakestoreapi.com/), состояния загрузки (skeleton), ошибки сети
+- **Корзина** — добавление, удаление и изменение количества товаров, живой подсчёт суммы и количества
+- **Оформление заказа** — очистка корзины с авто-исчезающим `Toast`-уведомлением об успехе
+- **Тёмная/светлая тема** — переключение в один клик через CSS Custom Properties, выбор сохраняется между визитами
+- **Устойчивая маршрутизация** — 404-страница и обработка рантайм-ошибок без потери навбара/футера
+- **Доступность** — семантическая разметка, `aria-label`, `role="alert"`/`role="status"`
+- **Защита от гонки состояний** — `AbortController` отменяет устаревшие запросы при быстрой навигации
 
-## Функциональность
+## 🧪 Тестирование
 
-- 📦 Список товаров с загрузкой из [Fake Store API](https://fakestoreapi.com/)
-- 🛒 Добавление/удаление товаров в корзину, изменение количества
-- 💰 Автоматический подсчёт суммы и количества товаров в корзине
-- ✅ Оформление заказа с уведомлением (Toast) об успешном оформлении
-- 🌗 Переключение светлой/тёмной темы с сохранением выбора между сессиями
-- ⚠️ Обработка ошибок загрузки данных и несуществующих маршрутов (404)
-- 💀 Skeleton-заглушки во время загрузки данных
-- ♿ Внимание к доступности: `aria-label`, `role="alert"`, `role="status"`, семантическая разметка
+- **~70 тестов** на Vitest + React Testing Library, покрывающих хуки, компоненты, роутинг и утилиты
+- Роутинг тестируется через `createMemoryRouter`, включая проверку, что навбар и футер остаются на месте на любом пути, включая 404
+- Отдельно протестированы edge-кейсы: отменённые fetch-запросы (`AbortError`) не должны портить состояние `products`/`loading`, авто-исчезающий `Toast` через `vi.useFakeTimers()`, доступные имена интерактивных элементов
 
-## Установка и запуск
+```bash
+npm run test        # разовый прогон всех тестов
+npm run test:watch  # watch-режим
+npm run test:ui     # интерактивный UI Vitest
+```
+
+## 🛠️ Стек технологий
+
+| Категория     | Технологии                                     |
+| ------------- | ---------------------------------------------- |
+| Библиотека UI | React 18                                       |
+| Сборка        | Vite                                           |
+| Роутинг       | React Router v7 (data router API)              |
+| Тестирование  | Vitest, React Testing Library                  |
+| Стилизация    | CSS Modules, CSS Custom Properties (темизация) |
+| Иконки        | lucide-react                                   |
+| Деплой        | Vercel                                         |
+
+## 🚀 Установка и запуск
 
 ```bash
 git clone https://github.com/klyrhaker/Project-Shopping-Cart.git
@@ -40,36 +81,30 @@ npm install
 npm run dev
 ```
 
-Приложение будет доступно по адресу `http://localhost:5173`.
+Приложение поднимется на `http://localhost:5173`.
 
-## Тестирование
-
-```bash
-npm run test        # разовый прогон всех тестов
-npm run test:watch  # тесты в watch-режиме
-npm run test:ui     # тесты с UI-интерфейсом Vitest
-```
-
-## Сборка для продакшена
+Сборка для продакшена:
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## Структура проекта
+## 📁 Структура проекта
 
 ```
 src/
-  components/     # переиспользуемые компоненты (Button, Navbar, Footer, Toast, ProductCard...)
-  hooks/          # кастомные хуки (useCart, useProducts, useTheme, useLocalStorage)
-  pages/          # компоненты страниц (HomePage, Shop, CartPage)
-  services/       # слой работы с API (productService)
-  utils/          # вспомогательные функции (cartUtils)
-  test-utils/     # утилиты для тестирования
+  components/     # Button, Navbar, Footer, Toast, ProductCard, ErrorMessage, Skeleton...
+  hooks/          # useCart, useProducts, useTheme, useLocalStorage
+  pages/          # HomePage, Shop, CartPage
+  services/       # productService — слой работы с API
+  utils/          # cartUtils — подсчёт суммы и количества товаров
+  test-utils/     # общие утилиты для тестов
   constants/      # константы (URL API и т.д.)
 ```
 
-## Автор
+Каждый компонент живёт в собственной папке вместе со своим тестом и CSS-модулем.
+
+## 👤 Автор
 
 [klyrhaker](https://github.com/klyrhaker)
