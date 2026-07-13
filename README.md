@@ -1,16 +1,75 @@
-# React + Vite
+# Klyrh Shop 🛒
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Учебный проект интернет-магазина с корзиной покупок, реализованный в рамках курса [The Odin Project](https://www.theodinproject.com/).
 
-Currently, two official plugins are available:
+**🔗 Демо:** [project-shopping-cart-ashy.vercel.app](https://project-shopping-cart-ashy.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## О проекте
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Klyrh Shop — одностраничное приложение (SPA) со списком товаров, корзиной, оформлением заказа и переключением светлой/тёмной темы. Проект разработан в строгом TDD-подходе: каждая фича сначала покрывается падающим тестом, затем реализуется код, который делает тест зелёным.
 
-## Expanding the ESLint configuration
+## Технологии
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **React 18** + **Vite**
+- **React Router v7** (data router API — `createBrowserRouter`)
+- **Vitest** + **React Testing Library** — модульное и интеграционное тестирование
+- **CSS Modules** — изолированная стилизация компонентов
+- **CSS Custom Properties** — светлая/тёмная тема
+- **lucide-react** — иконки
+- **Vercel** — деплой
+
+## Функциональность
+
+- 📦 Список товаров с загрузкой из [Fake Store API](https://fakestoreapi.com/)
+- 🛒 Добавление/удаление товаров в корзину, изменение количества
+- 💰 Автоматический подсчёт суммы и количества товаров в корзине
+- ✅ Оформление заказа с уведомлением (Toast) об успешном оформлении
+- 🌗 Переключение светлой/тёмной темы с сохранением выбора между сессиями
+- ⚠️ Обработка ошибок загрузки данных и несуществующих маршрутов (404)
+- 💀 Skeleton-заглушки во время загрузки данных
+- ♿ Внимание к доступности: `aria-label`, `role="alert"`, `role="status"`, семантическая разметка
+
+## Установка и запуск
+
+```bash
+git clone https://github.com/klyrhaker/Project-Shopping-Cart.git
+cd Project-Shopping-Cart
+npm install
+npm run dev
+```
+
+Приложение будет доступно по адресу `http://localhost:5173`.
+
+## Тестирование
+
+```bash
+npm run test        # разовый прогон всех тестов
+npm run test:watch  # тесты в watch-режиме
+npm run test:ui     # тесты с UI-интерфейсом Vitest
+```
+
+## Сборка для продакшена
+
+```bash
+npm run build
+npm run preview
+```
+
+## Структура проекта
+
+```
+src/
+  components/     # переиспользуемые компоненты (Button, Navbar, Footer, Toast, ProductCard...)
+  hooks/          # кастомные хуки (useCart, useProducts, useTheme, useLocalStorage)
+  pages/          # компоненты страниц (HomePage, Shop, CartPage)
+  services/       # слой работы с API (productService)
+  utils/          # вспомогательные функции (cartUtils)
+  test-utils/     # утилиты для тестирования
+  constants/      # константы (URL API и т.д.)
+```
+
+## Автор
+
+[klyrhaker](https://github.com/klyrhaker)
