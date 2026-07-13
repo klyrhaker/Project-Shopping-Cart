@@ -49,13 +49,10 @@ describe("productService", () => {
 
     await expect(getProducts()).rejects.toThrow();
   });
-  test("getProducts не выбрасывает ошибку при AbortError, а тихо завершается", async () => {
+  test("getProducts пробрасывает AbortError без оборачивания", async () => {
     const abortError = new Error("The operation was aborted");
     abortError.name = "AbortError";
     fetch.mockRejectedValue(abortError);
-
-    const result = await getProducts();
-
-    expect(result).toBeUndefined();
+    await expect(getProducts()).rejects.toThrow(abortError);
   });
 });

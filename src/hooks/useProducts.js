@@ -12,12 +12,12 @@ function useProducts() {
       try {
         const data = await getProducts(signal);
         setProducts(data);
+        setLoading(false);
       } catch (err) {
         if (err.name !== "AbortError") {
           setError(err);
+          setLoading(false);
         }
-      } finally {
-        setLoading(false);
       }
     }
     fetchProducts();

@@ -5,6 +5,7 @@ import ProductCard from "../ProductCard/ProductCard";
 import Button from "../Button/Button";
 import { useState } from "react";
 import Toast from "../Toast/Toast";
+import styles from "./CartPage.module.css";
 
 function CartPage() {
   const { cart, clearCart } = useCart();
@@ -13,13 +14,13 @@ function CartPage() {
   const [isOrder, setIsOrder] = useState(false);
 
   return (
-    <>
+    <div className={styles.cartWrapper}>
       {isOrder && (
         <Toast
           message="Заказ успешно оформлен"
           duration={3000}
           onDismiss={() => setIsOrder(false)}
-          className="order-message"
+          className={styles.orderMessage}
         />
       )}
 
@@ -27,32 +28,36 @@ function CartPage() {
         <Link to="/shop">Перейти к товарам</Link>
       ) : (
         <>
-          {cart.map((product) => (
-            <ProductCard key={product.id} {...product} isInCart />
-          ))}
+          <div className={styles.cartItemsList}>
+            {cart.map((product) => (
+              <ProductCard key={product.id} {...product} isInCart />
+            ))}
+          </div>
 
-          <p data-testid="total-price" className="total-price">
-            ${totalPrice.toFixed(2)}
-          </p>
-          <p data-testid="total-quantity" className="total-quantity">
-            {totalQuantity}
-          </p>
-          <Button
-            className="btn-order"
-            onClick={() => {
-              clearCart();
-              setIsOrder(true);
-            }}
-          >
-            Оформить заказ
-          </Button>
-
-          <Button className="clear-cart" onClick={clearCart}>
-            очистить корзину
-          </Button>
+          {/* Правая колонка с итогами */}
+          <div className={styles.cartSummary}>
+            <p data-testid="total-price" className={styles.totalPrice}>
+              Итого: ${totalPrice.toFixed(2)}
+            </p>
+            <p data-testid="total-quantity" className={styles.totalQuantity}>
+              Товаров: {totalQuantity} шт.
+            </p>
+            <Button
+              className={styles.btnOrder}
+              onClick={() => {
+                clearCart();
+                setIsOrder(true);
+              }}
+            >
+              Оформить заказ
+            </Button>
+            <Button className={styles.clearCart} onClick={clearCart}>
+              Очистить корзину
+            </Button>
+          </div>
         </>
       )}
-    </>
+    </div>
   );
 }
 export default CartPage;

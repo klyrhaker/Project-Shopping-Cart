@@ -1,7 +1,9 @@
+import styles from "./Footer.module.css";
+
 function Footer() {
   return (
-    <footer>
-      <p className="footer-text" data-testid="footer-text">
+    <footer className={styles.footerWrapper}>
+      <p className={styles.footerText} data-testid="footer-text">
         @klyrh2026
       </p>
     </footer>

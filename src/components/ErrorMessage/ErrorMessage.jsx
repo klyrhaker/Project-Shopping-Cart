@@ -1,6 +1,8 @@
+import styles from "./ErrorMessage.module.css";
+
 function ErrorMessage({ message }) {
   return (
-    <p data-testid="error-message" role="alert" className="error-message">
+    <p data-testid="error-message" role="alert" className={styles.errorMessage}>
       {message}
     </p>
   );

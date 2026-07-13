@@ -1,0 +1,158 @@
+.productCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+  background: var(--color-bg);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+:global([data-theme="dark"]) .productCard {
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.productCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="dark"]) .productCard:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.productTitle {
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 4px;
+  padding-right: 24px;
+}
+
+.cardPrice {
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 16px;
+}
+
+.productImg {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  background-color: transparent;
+}
+
+.productDescription {
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text);
+  opacity: 0.7;
+  margin-bottom: 24px;
+  flex: 1;
+}
+
+.ProductBtnAdd,
+.ProductBtnDec {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--color-text);
+  color: var(--color-bg);
+  transition:
+    transform 0.1s ease,
+    opacity 0.2s ease;
+}
+
+.ProductBtnAdd:space-hover,
+.ProductBtnDec:hover {
+  transform: scale(1.05);
+}
+
+.ProductBtnAdd:active,
+.ProductBtnDec:active {
+  transform: scale(0.95);
+}
+
+.productQuantity {
+  display: inline-block;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+  min-width: 32px;
+  text-align: center;
+  margin: 0 8px;
+  align-self: center;
+}
+
+.productCard button,
+.productCard span {
+  vertical-align: middle;
+}
+
+.productBtnRemove {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+  opacity: 0.4;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.productBtnRemove:hover {
+  opacity: 1;
+  color: #ff6b6b;
+  transform: rotate(90deg);
+}
+.controlsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+}

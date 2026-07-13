@@ -1,0 +1,16 @@
+:root {
+  --color-bg: #f8fafc;
+  --color-text: #0f172a;
+  --color-primary: #b8862d;
+}
+
+[data-theme="dark"] {
+  --color-bg: #0f101b;
+  --color-text: #e2e8f0;
+  --color-primary: #38bdf8;
+}
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}

@@ -1,0 +1,226 @@
+.cartWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  box-sizing: border-box;
+  flex: 1;
+}
+
+/* Ссылка "Перейти к товарам", когда корзина пуста */
+.cartWrapper > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  margin: auto 0;
+  text-decoration: none;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #ffffff;
+  padding: 14px 36px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #e0b463 0%, #b8862d 100%);
+  box-shadow: 0 4px 14px rgba(184, 134, 45, 0.3);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.cartWrapper > a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(184, 134, 45, 0.45);
+}
+
+.cartItemsList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.cartSummary {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+  box-sizing: border-box;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+:global([data-theme="dark"]) .cartSummary {
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.totalPrice {
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+}
+
+.totalQuantity {
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 16px;
+  color: var(--color-text);
+  opacity: 0.7;
+  margin-bottom: 24px;
+}
+
+.btnOrder {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--color-text);
+  color: var(--color-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.1s ease,
+    opacity 0.2s ease;
+  margin-bottom: 12px;
+}
+
+.btnOrder:hover {
+  opacity: 0.9;
+}
+
+.btnOrder:active {
+  transform: scale(0.98);
+}
+
+.clearCart {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ff6b6b;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.clearCart:hover {
+  background-color: rgba(255, 107, 107, 0.05);
+}
+
+/* --- Тост-уведомление --- */
+:global(.toast) {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid #10b981;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+  animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+:global([data-theme="dark"]) :global(.toast) {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+:global(.toast)::before {
+  content: "✓";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background-color: #10b981;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.orderMessage {
+  position: fixed;
+  top: 85px;
+  right: 24px;
+  z-index: 9999;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* --- Адаптивность --- */
+@media (max-width: 480px) {
+  .orderMessage {
+    top: 16px;
+    left: 16px;
+    right: 16px;
+  }
+  :global(.toast) {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 768px) {
+  .cartWrapper {
+    padding: 40px 32px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    align-items: start;
+  }
+
+  .cartSummary {
+    position: sticky;
+    top: 100px;
+  }
+
+  .orderMessage {
+    top: 90px;
+    right: 32px;
+  }
+}

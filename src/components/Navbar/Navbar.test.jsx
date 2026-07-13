@@ -14,17 +14,24 @@ describe("Navbar", () => {
   });
   test("Navbar рендерит лого", () => {
     render(<Navbar />, { wrapper });
-    const logo = screen.getByRole("heading", { name: "Klyrh Cart" });
+    const logo = screen.getByRole("heading", { name: "Klyrh" });
     expect(logo).toBeInTheDocument();
   });
-  test("Navbar рендерит ссылку страницу товаров", () => {
+  test("Navbar рендерит ссылку на главную страницу", () => {
+    render(<Navbar />, { wrapper });
+    const linkPageGoods = screen.getByRole("link", { name: /главная/i });
+    expect(linkPageGoods).toBeInTheDocument();
+  });
+  test("Navbar рендерит ссылку на страницу товаров", () => {
     render(<Navbar />, { wrapper });
     const linkPageGoods = screen.getByRole("link", { name: /товары/i });
     expect(linkPageGoods).toBeInTheDocument();
   });
   test("Navbar рендерит ссылку на страницу корзины товаров", () => {
     render(<Navbar />, { wrapper });
-    const linkPageCart = screen.getByRole("link", { name: /корзина/i });
+    const linkPageCart = screen.getByRole("link", {
+      name: /перейти в корзину/i,
+    });
     expect(linkPageCart).toBeInTheDocument();
   });
 

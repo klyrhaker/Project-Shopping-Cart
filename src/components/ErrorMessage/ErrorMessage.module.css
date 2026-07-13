@@ -1,0 +1,46 @@
+.errorMessage {
+  display: flex;
+  flex-direction: column; /* Выстраиваем иконку и текст вертикально */
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+
+  /* Твои текущие размеры, которые отлично прижали футер */
+  min-height: calc(100vh - 300px);
+  max-width: 550px;
+  width: calc(100% - 32px);
+  margin: 40px auto;
+  padding: 32px;
+  box-sizing: border-box;
+
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+
+  background-color: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+  border-radius: 16px;
+
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.03);
+}
+
+/* Настройки под темную тему */
+:global([data-theme="dark"]) .errorMessage {
+  background-color: rgba(220, 38, 38, 0.05);
+  color: #fca5a5;
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Крупная иконка сверху по центру */
+.errorMessage::before {
+  content: "⚠️";
+  font-size: 32px; /* Сделаем её побольше и поприметнее */
+  display: block;
+}

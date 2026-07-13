@@ -1,5 +1,6 @@
 import useCart from "../../hooks/useCart";
 import Button from "../Button/Button";
+import styles from "./ProductCard.module.css";
 
 function ProductCard(props) {
   const {
@@ -14,41 +15,46 @@ function ProductCard(props) {
   const cartItem = cart.find((item) => item.id === id);
   const quantity = cartItem ? cartItem.quantity : 0;
   return (
-    <article data-card-id={id} className="product__card">
-      <h2 data-testid="card-title" className="product__card-title">
+    <article data-card-id={id} className={styles.productCard}>
+      <h2 data-testid="card-title" className={styles.productTitle}>
         {title}
       </h2>
       <span
         data-testid="card-price"
-        className="product__card-price"
+        className={styles.cardPrice}
       >{`$${price.toFixed(2)}`}</span>
       <img
         data-testid="card-img"
-        className="product__card-img"
+        className={styles.productImg}
         src={img.src}
         alt={img.alt}
       />
-      <p data-testid="card-description" className="product__card-description">
+      <p data-testid="card-description" className={styles.productDescription}>
         {description}
       </p>
-      <Button
-        onClick={() => addToCart(props)}
-        aria-label="добавить товар в корзину"
-      >
-        +
-      </Button>
-      <span className="product__card-quantity" aria-live="polite">
-        {quantity}
-      </span>
-      <Button
-        onClick={() => decreaseFromCart(props)}
-        aria-label="убрать товар из корзины"
-      >
-        -
-      </Button>
+      <div className={styles.controlsRow}>
+        <Button
+          onClick={() => addToCart(props)}
+          aria-label="добавить товар в корзину"
+          className={styles.ProductBtnAdd}
+        >
+          +
+        </Button>
+        <span className={styles.productQuantity} aria-live="polite">
+          {quantity}
+        </span>
+        <Button
+          onClick={() => decreaseFromCart(props)}
+          aria-label="убрать товар из корзины"
+          className={styles.ProductBtnDec}
+        >
+          -
+        </Button>
+      </div>
+
       {isInCart && (
         <Button
-          className="remove-cart"
+          className={styles.productBtnRemove}
           onClick={() => removeFromCart(id)}
           aria-label="удалить товар"
           data-testid={`remove-${id}`}

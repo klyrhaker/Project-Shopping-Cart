@@ -1,0 +1,28 @@
+.skeleton {
+  width: 40px;
+  height: 40px;
+  margin: 40px auto;
+  border: 3px solid var(--color-text);
+  border-top-color: transparent;
+  border-radius: 50%;
+  opacity: 0.15;
+
+  animation: spin 0.8s linear infinite;
+}
+
+:global([data-theme="dark"]) .skeleton {
+  opacity: 0.3;
+
+  border-color: rgba(255, 255, 255, 0.1);
+  border-top-color: var(--color-primary);
+  opacity: 1;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
