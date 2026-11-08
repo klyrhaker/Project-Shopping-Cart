@@ -1,10 +1,10 @@
 import { Link } from "react-router";
 import useCart from "../../hooks/useCart";
 import { getCartSummary } from "../../utils/cartUtils";
-import ProductCard from "../ProductCard/ProductCard";
-import Button from "../Button/Button";
+import ProductCard from "../../components/ProductCard/ProductCard";
+import Button from "../../components/Button/Button";
 import { useState } from "react";
-import Toast from "../Toast/Toast";
+import Toast from "../../components/Toast/Toast";
 import styles from "./CartPage.module.css";
 
 function CartPage() {

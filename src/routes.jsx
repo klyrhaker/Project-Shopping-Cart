@@ -1,7 +1,7 @@
-import CartPage from "./components/CartPage/CartPage";
+import CartPage from "./pages/CartPage/CartPage";
 import Layout from "./components/Layout/Layout";
-import Shop from "./components/Shop/Shop";
-import HomePage from "./components/HomePage/HomePage";
+import Shop from "./pages/Shop/Shop";
+import HomePage from "./pages/HomePage/HomePage";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 
 const routes = [

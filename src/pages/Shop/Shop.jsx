@@ -1,7 +1,7 @@
 import useProducts from "../../hooks/useProducts";
-import ErrorMessage from "../ErrorMessage/ErrorMessage";
-import ProductCard from "../ProductCard/ProductCard";
-import Skeleton from "../Skeleton/Skeleton";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import ProductCard from "../../components/ProductCard/ProductCard";
+import Skeleton from "../../components/Skeleton/Skeleton";
 import styles from "./Shop.module.css";
 
 function Shop() {
