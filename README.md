@@ -94,9 +94,10 @@ npm run preview
 
 ```
 src/
-  components/     # Button, Navbar, Footer, Toast, ProductCard, ErrorMessage, Skeleton...
+  components/     # виджеты: Button, Layout, Navbar, Footer, Toast, ProductCard, ErrorMessage, Skeleton
+  pages/          # страницы маршрутов: HomePage, Shop, CartPage
+  context/        # CartContext — состояние корзины
   hooks/          # useCart, useProducts, useTheme, useLocalStorage
-  pages/          # HomePage, Shop, CartPage
   services/       # productService — слой работы с API
   utils/          # cartUtils — подсчёт суммы и количества товаров
   test-utils/     # общие утилиты для тестов
