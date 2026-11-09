@@ -40,6 +40,14 @@ describe("routes", () => {
     const productList = screen.getByTestId("product-list");
     expect(productList).toBeInTheDocument();
   });
+  test("рендерит ProductPage по пути /shop/:id", () => {
+    const router = createMemoryRouter(routes, {
+      initialEntries: ["/shop/5"],
+    });
+    render(<RouterProvider router={router} />);
+    const productPage = screen.getByTestId("product-page");
+    expect(productPage).toBeInTheDocument();
+  });
   test("рендерит CartPage по пути /cart", () => {
     const router = createMemoryRouter(routes, {
       initialEntries: ["/cart"],

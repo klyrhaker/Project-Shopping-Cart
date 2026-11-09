@@ -2,6 +2,7 @@ import CartPage from "./pages/CartPage/CartPage";
 import Layout from "./components/Layout/Layout";
 import Shop from "./pages/Shop/Shop";
 import HomePage from "./pages/HomePage/HomePage";
+import ProductPage from "./pages/ProductPage/ProductPage";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 
 const routes = [
@@ -17,6 +18,9 @@ const routes = [
           { index: true, element: <HomePage /> },
           { path: "shop", element: <Shop /> },
           { path: "cart", element: <CartPage /> },
+          {path: "shop/:id", element:
+            <ProductPage/>
+          },
           {
             path: "*",
             element: (
