@@ -1,5 +1,6 @@
 import useCart from "../../hooks/useCart";
 import Button from "../Button/Button";
+import { Link } from "react-router";
 import styles from "./ProductCard.module.css";
 
 function ProductCard(props) {
@@ -17,7 +18,9 @@ function ProductCard(props) {
   return (
     <article data-card-id={id} className={styles.productCard}>
       <h2 data-testid="card-title" className={styles.productTitle}>
-        {title}
+        <Link data-testid={`link-${id}`} to={`/shop/${id}`}>
+          {title}
+        </Link>
       </h2>
       <span
         data-testid="card-price"

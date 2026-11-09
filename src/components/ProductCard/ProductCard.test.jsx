@@ -39,6 +39,12 @@ describe("ProductCard", () => {
     const price = screen.getByTestId("card-price");
     expect(price).toHaveTextContent("$5.00");
   });
+  test("рендерит заголовок-ссылку, ведущую на /shop/:id", () => {
+    render(<ProductCard id={6} />, { wrapper });
+    const link = screen.getByTestId("link-6");
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute("href", "/shop/6");
+  });
   test("рендерит кнопку при клике на которую товар добавляется в корзину", async () => {
     const user = userEvent.setup();
     render(

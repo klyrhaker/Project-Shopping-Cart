@@ -2,11 +2,14 @@ import { screen, render } from "@testing-library/react";
 import useProducts from "../../hooks/useProducts";
 import Shop from "./Shop";
 vi.mock("../../hooks/useProducts");
+import { MemoryRouter } from "react-router";
 
 describe("Shop", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
+  const wrapper = ({ children }) => <MemoryRouter>{children}</MemoryRouter>;
+
   test("рендерит список товаров", () => {
     useProducts.mockReturnValue({
       products: [
@@ -21,7 +24,7 @@ describe("Shop", () => {
       loading: false,
       error: null,
     });
-    render(<Shop />);
+    render(<Shop />, { wrapper });
     const title = screen.getByRole("heading", { name: "product-test" });
     expect(title).toBeInTheDocument();
   });

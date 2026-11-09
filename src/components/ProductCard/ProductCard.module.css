@@ -40,7 +40,15 @@
   margin-bottom: 4px;
   padding-right: 24px;
 }
+.productTitle a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
 
+.productTitle a:hover {
+  color: var(--color-primary);
+}
 .cardPrice {
   font-family:
     system-ui,
