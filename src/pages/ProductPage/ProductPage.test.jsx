@@ -34,4 +34,19 @@ describe("ProductPage", () => {
     const title = screen.getByRole("heading", { name: "product-test" });
     expect(title).toBeInTheDocument();
   });
+  test("показывает ссылку «Вернуться к товарам», ведущую на /shop", () => {
+    useProducts.mockReturnValue({
+      products: [],
+      loading: false,
+      error: null,
+    });
+    const router = createMemoryRouter(
+      [{ path: "/shop/:id", element: <ProductPage /> }],
+      { initialEntries: ["/shop/5"] },
+    );
+    render(<RouterProvider router={router} />);
+    const link = screen.getByTestId("shop-link");
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute("href", "/shop");
+  });
 });

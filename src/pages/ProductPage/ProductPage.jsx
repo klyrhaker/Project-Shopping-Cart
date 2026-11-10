@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import useProducts from "../../hooks/useProducts";
 import ProductCard from "../../components/ProductCard/ProductCard";
 
@@ -9,6 +9,9 @@ function ProductPage() {
 
   return (
     <div data-testid="product-page">
+      <Link to="/shop" data-testid="shop-link">
+        Вернуться к товарам
+      </Link>
       {product && <ProductCard {...product} />}
     </div>
   );
