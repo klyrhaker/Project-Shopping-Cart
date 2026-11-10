@@ -2,9 +2,10 @@ import { render, screen } from "@testing-library/react";
 import { CartProvider } from "../../context/CartContext";
 import { MemoryRouter } from "react-router";
 import Navbar from "./Navbar";
+import type { PropsWithChildren } from "react";
 
 describe("Navbar", () => {
-  const wrapper = ({ children }) => (
+  const wrapper = ({ children }: PropsWithChildren) => (
     <MemoryRouter>
       <CartProvider>{children}</CartProvider>
     </MemoryRouter>
