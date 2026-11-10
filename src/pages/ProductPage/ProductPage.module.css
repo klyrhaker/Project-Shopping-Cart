@@ -6,7 +6,7 @@
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  padding: 24px 16px 96px;
+  padding: 24px 16px;
 }
 
 .backLink {
@@ -30,6 +30,6 @@
 
 @media (min-width: 768px) {
   .productPage {
-    padding: 40px 32px 96px;
+    padding: 40px 32px;
   }
 }
