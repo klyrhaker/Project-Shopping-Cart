@@ -1,8 +1,10 @@
 import { Link, useParams } from "react-router";
+import { ArrowLeft } from "lucide-react";
 import useProducts from "../../hooks/useProducts";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Skeleton from "../../components/Skeleton/Skeleton";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import styles from "./ProductPage.module.css";
 
 function ProductPage() {
   const { id } = useParams();
@@ -21,8 +23,9 @@ function ProductPage() {
   }
 
   return (
-    <div data-testid="product-page">
-      <Link to="/shop" data-testid="shop-link">
+    <div data-testid="product-page" className={styles.productPage}>
+      <Link to="/shop" data-testid="shop-link" className={styles.backLink}>
+        <ArrowLeft size={18} />
         Вернуться к товарам
       </Link>
       {productContent}
