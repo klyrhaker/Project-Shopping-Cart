@@ -2,8 +2,12 @@ import useCart from "../../hooks/useCart";
 import Button from "../Button/Button";
 import { Link } from "react-router";
 import styles from "./ProductCard.module.css";
+import type { Product } from "../../types/product";
 
-function ProductCard(props) {
+interface ProductCardProps extends Product {
+  isInCart?: boolean;
+}
+function ProductCard(props: ProductCardProps) {
   const {
     title,
     description,

@@ -1,18 +1,23 @@
-import { createContext } from "react";
+import { createContext, type PropsWithChildren } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
+import type { Product, CartItem } from "../types/product";
 
-const CartContext = createContext({
-  cart: [],
-  addToCart: () => {},
-  decreaseFromCart: () => {},
-  removeFromCart: () => {},
-  clearCart: () => {},
-});
-function CartProvider({ children }) {
-  const [cart, setCart] = useLocalStorage("cart", []);
+interface CartContextValue {
+  cart: CartItem[];
+  addToCart: (product: Product) => void;
+  decreaseFromCart: (product: Product) => void;
+  removeFromCart: (id: number) => void;
+  clearCart: () => void;
+}
 
-  function addToCart(product) {
+const CartContext = createContext<CartContextValue | null>(null);
+
+function CartProvider({ children }: PropsWithChildren) {
+  const [cart, setCart] = useLocalStorage("cart", [] as CartItem[]);
+
+  function addToCart(product: Product): void {
     const existing = cart.find((item) => item.id === product.id);
+
     if (existing) {
       setCart(
         cart.map((item) =>
@@ -26,29 +31,33 @@ function CartProvider({ children }) {
     }
   }
 
-  function decreaseFromCart(product) {
+  function decreaseFromCart(product: Product): void {
     const cartItem = cart.find((item) => item.id === product.id);
+
     if (!cartItem) return;
+
     if (cartItem.quantity > 1) {
-      return setCart(
+      setCart(
         cart.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity - 1 }
             : item,
         ),
       );
+      return;
     }
 
-    return setCart(cart.filter((item) => item.id !== product.id));
+    setCart(cart.filter((item) => item.id !== product.id));
   }
 
-  function removeFromCart(id) {
-    return setCart(cart.filter((item) => item.id !== id));
+  function removeFromCart(id: number): void {
+    setCart(cart.filter((item) => item.id !== id));
   }
 
-  function clearCart() {
-    return setCart([]);
+  function clearCart(): void {
+    setCart([]);
   }
+
   return (
     <CartContext.Provider
       value={{ cart, addToCart, decreaseFromCart, removeFromCart, clearCart }}
@@ -57,4 +66,5 @@ function CartProvider({ children }) {
     </CartContext.Provider>
   );
 }
+
 export { CartContext, CartProvider };

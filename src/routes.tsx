@@ -18,9 +18,7 @@ const routes = [
           { index: true, element: <HomePage /> },
           { path: "shop", element: <Shop /> },
           { path: "cart", element: <CartPage /> },
-          {path: "shop/:id", element:
-            <ProductPage/>
-          },
+          { path: "shop/:id", element: <ProductPage /> },
           {
             path: "*",
             element: (

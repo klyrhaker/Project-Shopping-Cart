@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 import useCart from "../../hooks/useCart";
 import Button from "../Button/Button";
 import useTheme from "../../hooks/useTheme";

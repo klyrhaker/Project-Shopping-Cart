@@ -1,27 +1,35 @@
 import { render, screen } from "@testing-library/react";
 import { createMemoryRouter, RouterProvider } from "react-router";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import routes from "./routes";
 import useProducts from "./hooks/useProducts";
 import useCart from "./hooks/useCart";
-import { expect } from "vitest";
+
 vi.mock("./hooks/useProducts");
 vi.mock("./hooks/useCart");
+
+const mockedUseProducts = vi.mocked(useProducts);
+const mockedUseCart = vi.mocked(useCart);
 
 describe("routes", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    useCart.mockReturnValue({
+
+    mockedUseCart.mockReturnValue({
       cart: [],
       addToCart: () => {},
       decreaseFromCart: () => {},
+      removeFromCart: () => {},
       clearCart: () => {},
     });
-    useProducts.mockReturnValue({
+
+    mockedUseProducts.mockReturnValue({
       products: [],
       loading: false,
       error: null,
     });
   });
+
   test("рендерит HomePage на пути /", () => {
     const router = createMemoryRouter(routes, {
       initialEntries: ["/"],
@@ -29,43 +37,65 @@ describe("routes", () => {
 
     render(<RouterProvider router={router} />);
 
-    const heading = screen.getByRole("heading", { name: "Klyrh Shop" });
+    const heading = screen.getByRole("heading", {
+      name: "Klyrh Shop",
+    });
+
     expect(heading).toBeInTheDocument();
   });
+
   test("рендерит Shop на пути /shop", () => {
     const router = createMemoryRouter(routes, {
       initialEntries: ["/shop"],
     });
+
     render(<RouterProvider router={router} />);
+
     const productList = screen.getByTestId("product-list");
+
     expect(productList).toBeInTheDocument();
   });
+
   test("рендерит ProductPage по пути /shop/:id", () => {
     const router = createMemoryRouter(routes, {
       initialEntries: ["/shop/5"],
     });
+
     render(<RouterProvider router={router} />);
+
     const productPage = screen.getByTestId("product-page");
+
     expect(productPage).toBeInTheDocument();
   });
+
   test("рендерит CartPage по пути /cart", () => {
     const router = createMemoryRouter(routes, {
       initialEntries: ["/cart"],
     });
+
     render(<RouterProvider router={router} />);
-    const link = screen.getByRole("link", { name: /перейти к товарам/i });
+
+    const link = screen.getByRole("link", {
+      name: /перейти к товарам/i,
+    });
+
     expect(link).toBeInTheDocument();
   });
+
   test("рендерит ErrorMessage в случае неверного пути", () => {
     const router = createMemoryRouter(routes, {
       initialEntries: ["/this-page-does-not-exist"],
     });
+
     render(<RouterProvider router={router} />);
+
     const errorMessage = screen.getByRole("alert");
+
     expect(errorMessage).toHaveTextContent(
       /что-то пошло не так. попробуйте вернуться на главную./i,
     );
   });
+
   test.each(["/", "/shop", "/cart", "/this-page-does-not-exist"])(
     "футер отображается на пути %s",
     (path) => {
@@ -76,6 +106,7 @@ describe("routes", () => {
       render(<RouterProvider router={router} />);
 
       const footer = screen.getByRole("contentinfo");
+
       expect(footer).toBeInTheDocument();
     },
   );
